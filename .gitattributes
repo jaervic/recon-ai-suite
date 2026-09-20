@@ -9,9 +9,13 @@
 # con CRLF falla al ejecutarse en Linux/WSL/Kali ("bash: $'\r': command not found").
 *.sh text eol=lf
 
-# Binarios: nunca se normalizan ni se muestran como texto en los diffs.
+# Datos y binarios: nunca se normalizan ni se muestran como texto en los diffs.
 *.png binary
 *.jpg binary
 *.jpeg binary
 *.pdf binary
 *.zip binary
+# Wordlist de SecLists: es un fichero de DATOS y debe conservar sus bytes
+# exactos (LF) en cualquier plataforma. Un checkout en Windows la convertiría a
+# CRLF, lo que rompería hashes y puede afectar a herramientas que asumen LF.
+evidencia/wordlists/** -text

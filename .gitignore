@@ -19,8 +19,9 @@ evidencia/parsed/*
 evidencia/reportes/*
 !evidencia/**/.gitkeep
 
-# --- Wordlists (descargables, no se versionan) -------------------------------
-evidencia/wordlists/
+# --- Wordlists ----------------------------------------------------------------
+# SÍ se versiona (~38 KB): el repo funciona out-of-the-box al clonar y queda
+# congelada la versión de SecLists que fue probada.
 
 # --- Secretos -----------------------------------------------------------------
 .env
