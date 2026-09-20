@@ -1,0 +1,32 @@
+# =============================================================================
+# recon-ai-suite - Reglas de exclusión de Git
+# =============================================================================
+
+# --- Entornos virtuales ------------------------------------------------------
+.venv/
+venv/
+env/
+
+# --- Python ------------------------------------------------------------------
+__pycache__/
+*.py[cod]
+*.egg-info/
+.pytest_cache/
+
+# --- Evidencia generada (se conservan los .gitkeep) --------------------------
+evidencia/raw/*
+evidencia/parsed/*
+evidencia/reportes/*
+!evidencia/**/.gitkeep
+
+# --- Wordlists (descargables, no se versionan) -------------------------------
+evidencia/wordlists/
+
+# --- Secretos -----------------------------------------------------------------
+.env
+*.key
+config.local.yaml
+
+# --- Sistema operativo --------------------------------------------------------
+.DS_Store
+Thumbs.db

@@ -1,0 +1,57 @@
+# =============================================================================
+# recon-ai-suite - Configuración de EJEMPLO (plantilla)
+# =============================================================================
+# Uso:
+#   1. Copia este archivo como config.yaml (que no se versiona):
+#        cp config.example.yaml config.yaml      # Linux/WSL/macOS
+#        copy config.example.yaml config.yaml    # Windows (cmd)
+#   2. Ajusta el objetivo, los binarios y la ruta de la wordlist.
+#   3. NUNCA escribas la API key en este archivo: va en la variable de entorno
+#      indicada en `api.api_key_env`.
+#        export DEEPSEEK_API_KEY="TU_API_KEY_AQUI"    # Linux/WSL/macOS
+#        $env:DEEPSEEK_API_KEY = "TU_API_KEY_AQUI"    # PowerShell
+#
+# Este archivo SÍ se versiona; config.yaml y config.local.yaml están ignorados.
+# =============================================================================
+
+project:
+  name: recon-ai-suite
+  output_dir: ./evidencia        # Relativo a la raíz del proyecto
+  timezone: UTC
+
+# Objetivo por defecto (siempre sobrescribible con --target)
+target:
+  domain: ""                     # Ej: scanme.nmap.org (entorno de práctica)
+  ip: ""                         # Ej: 192.168.56.10 (tu laboratorio)
+
+# --- Motor de IA para priorización (DeepSeek, compatible con OpenAI API) -----
+api:
+  provider: deepseek
+  base_url: https://api.deepseek.com
+  model: deepseek-chat
+  api_key_env: DEEPSEEK_API_KEY  # Nombre de la variable de entorno, NO la key
+  timeout: 60                    # Segundos
+  max_tokens: 2048
+  temperature: 0.2
+
+# --- Herramientas de reconocimiento -----------------------------------------
+scanner:
+  nmap:
+    enabled: true
+    binary: nmap                 # Debe estar en el PATH
+    flags: "-sV -sC -T4 --top-ports 1000"
+    timeout: 900                 # Segundos
+  gobuster:
+    enabled: false               # Actívalo solo con permiso y un HTTP activo
+    binary: gobuster             # Debe estar en el PATH
+    # Ajusta la ruta a tu sistema operativo:
+    #   Linux/Kali  : /usr/share/wordlists/dirb/common.txt
+    #   Repo local  : ./evidencia/wordlists/common.txt (SecLists common.txt)
+    wordlist: /usr/share/wordlists/dirb/common.txt
+    timeout: 600
+
+# --- Generación de informes --------------------------------------------------
+report:
+  format: markdown               # markdown | pdf (pdf requiere pandoc/weasyprint)
+  include_raw_evidence: true
+  language: es

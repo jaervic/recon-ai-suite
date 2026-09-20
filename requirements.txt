@@ -1,0 +1,28 @@
+# recon-ai-suite - Dependencias Python (probado con Python 3.11+)
+#
+# Instalación:
+#   python -m venv .venv
+#   .venv\Scripts\activate      # Windows
+#   source .venv/bin/activate   # Linux/WSL
+#   pip install -r requirements.txt
+
+# --- Reconocimiento ----------------------------------------------------------
+# Wrapper Python sobre el binario nmap: devuelve el XML ya parseado como objeto
+python-nmap>=0.7.1
+
+# --- Motor de IA (priorización de hallazgos) ---------------------------------
+# SDK oficial, compatible con la API de DeepSeek (base_url=https://api.deepseek.com)
+openai>=1.30.0
+# Transporte HTTP de respaldo si el SDK no está disponible + peticiones puntuales
+requests>=2.31.0
+
+# --- Configuración y generación de informes ----------------------------------
+# Lectura de config.yaml
+PyYAML>=6.0
+# Motor de plantillas para el informe Markdown/HTML/PDF
+Jinja2>=3.1.3
+
+# --- Requisitos externos (no instalables con pip) ----------------------------
+# nmap      -> https://nmap.org/download.html   (obligatorio: python-nmap lo invoca)
+# gobuster  -> https://github.com/OJ/gobuster   (opcional: enumeración web)
+# pandoc / weasyprint -> sólo si se convierte el informe a PDF (ver config.yaml)

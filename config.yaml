@@ -1,0 +1,44 @@
+# =============================================================================
+# recon-ai-suite - Configuración central
+# =============================================================================
+# NOTA DE SEGURIDAD: nunca escribas API keys en este archivo.
+# La clave se lee de la variable de entorno indicada en `api.api_key_env`.
+
+project:
+  name: recon-ai-suite
+  output_dir: ./evidencia        # Relativo a la raíz del proyecto
+  timezone: UTC
+
+# Objetivo por defecto (siempre sobrescribible con --target)
+target:
+  domain: ""                     # Ej: scanme.nmap.org
+  ip: ""                         # Ej: 192.168.56.10
+
+# --- Motor de IA para priorización (DeepSeek, compatible con OpenAI API) -----
+api:
+  provider: deepseek
+  base_url: https://api.deepseek.com
+  model: deepseek-chat
+  api_key_env: DEEPSEEK_API_KEY  # export DEEPSEEK_API_KEY="sk-..."
+  timeout: 60                    # Segundos
+  max_tokens: 2048
+  temperature: 0.2
+
+# --- Herramientas de reconocimiento -----------------------------------------
+scanner:
+  nmap:
+    enabled: true
+    binary: nmap
+    flags: "-sV -sC -T4 --top-ports 1000"
+    timeout: 900                 # Segundos
+  gobuster:
+    enabled: false               # Requiere wordlist y un servicio HTTP activo
+    binary: gobuster
+    wordlist: /usr/share/wordlists/dirb/common.txt
+    timeout: 600
+
+# --- Generación de informes --------------------------------------------------
+report:
+  format: markdown               # markdown | pdf (pdf requiere pandoc/weasyprint)
+  include_raw_evidence: true
+  language: es
