@@ -34,11 +34,14 @@ scanner:
   gobuster:
     enabled: false               # Requiere wordlist y un servicio HTTP activo
     binary: gobuster
-    wordlist: /usr/share/wordlists/dirb/common.txt
+    # Wordlist de SecLists (Discovery/Web-Content/common.txt).
+    # La ruta relativa se resuelve contra la raíz del proyecto (run_recon.sh
+    # hace cd allí); en Linux puedes usar /usr/share/wordlists/dirb/common.txt.
+    wordlist: ./evidencia/wordlists/common.txt
     timeout: 600
 
 # --- Generación de informes --------------------------------------------------
 report:
-  format: markdown               # markdown | pdf (pdf requiere pandoc/weasyprint)
+  format: markdown               # Único formato implementado (PDF: ver docs/01, Backlog)
   include_raw_evidence: true
   language: es

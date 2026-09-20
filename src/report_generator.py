@@ -1,9 +1,9 @@
-"""Genera el informe final a partir del JSON priorizado usando plantillas Jinja2.
+"""Genera el informe final en Markdown a partir del JSON priorizado usando plantillas Jinja2.
 
 La plantilla está embebida en este módulo (`REPORT_TEMPLATE`) para respetar la
 estructura del proyecto; la presentación queda separada de los datos, de modo
-que cambiar de formato (Markdown, HTML o PDF vía pandoc/weasyprint) o de idioma
-no obliga a tocar la lógica del pipeline.
+que cambiar la plantilla (hoy el único formato implementado es Markdown, salida
+`.md`) no obliga a tocar la lógica del pipeline.
 
 Uso:
     python -m src.report_generator --target scanme.nmap.org

@@ -1,0 +1,17 @@
+# =============================================================================
+# recon-ai-suite - Normalización de finales de línea
+# =============================================================================
+# text=auto: git normaliza a LF dentro del repositorio y aplica el EOL nativo
+# al hacer checkout (CRLF en Windows, LF en Linux/macOS).
+* text=auto
+
+# Los scripts de shell deben conservar LF SIEMPRE, incluso en Windows: un .sh
+# con CRLF falla al ejecutarse en Linux/WSL/Kali ("bash: $'\r': command not found").
+*.sh text eol=lf
+
+# Binarios: nunca se normalizan ni se muestran como texto en los diffs.
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.pdf binary
+*.zip binary

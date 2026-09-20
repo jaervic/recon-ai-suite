@@ -110,9 +110,9 @@ E --> F[Informe Priorizado]
 - **Módulo**: `src/report_generator.py`, usando **Jinja2** (`jinja2.Template`) para
   separar la plantilla de presentación de los datos.
 - **Por qué existe**: es el producto entregable; el valor del pipeline sólo se
-  materializa cuando el cliente recibe un informe legible. Jinja2 permite cambiar
-  el formato (Markdown, HTML, PDF) o el idioma tocando la plantilla, sin modificar
-  la lógica de recolección ni de priorización.
+  materializa cuando el cliente recibe un informe legible. Jinja2 permite ajustar
+  la plantilla (hoy el único formato implementado es Markdown) sin modificar la
+  lógica de recolección ni de priorización.
 - **Salida**: `evidencia/reportes/<target>_<YYYYmmdd-HHMMSS>.md` (o la ruta indicada
   con `--out`).
 
@@ -207,9 +207,14 @@ El documento priorizado añade `engine`, `counts_by_severity`, `executive_summar
 - La priorización con IA sólo envía campos compactos del hallazgo, nunca la
   evidencia cruda; `--no-ai` permite modo 100% local.
 
+## 📦 Backlog (declarado, no implementado)
+
+- **Salida en PDF**: `report.format` sólo admite `markdown`, que es el único
+  formato implementado. Generar un PDF exigiría convertir el Markdown/HTML con una
+  herramienta externa (pandoc o weasyprint); Jinja2 ya deja esa vía abierta, pero
+  hoy no es un requisito del pipeline ni una dependencia del proyecto.
+
 ## 🚧 Limitaciones conocidas
 
-- La conversión a PDF está pendiente: `report.format: pdf` requiere pandoc o
-  weasyprint (Jinja2 ya deja el HTML/Markdown listo para esa fase).
 - `gobuster` requiere una wordlist válida en `config.yaml` y un servicio HTTP vivo.
 - No hay paralelización entre fases ni reintentos con *backoff* en la llamada al LLM.

@@ -18,7 +18,7 @@ ofensivas (nmap, gobuster), normaliza su salida a JSON, la prioriza con un LLM
 ┌─────────┐   ┌─────────┐   ┌────────────────┐   ┌──────────────────┐
 │ scanner │──▶│ parser  │──▶│ ai_prioritizer │──▶│ report_generator │
 │ (nmap,  │   │ (XML -> │   │ (DeepSeek API  │   │ (Markdown ->     │
-│ gobuster)│   │  JSON)  │   │  o heurística) │   │  PDF opcional)   │
+│ gobuster)│   │  JSON)  │   │  o heurística) │   │  informe .md)    │
 └─────────┘   └─────────┘   └────────────────┘   └──────────────────┘
      │             │                 │                     │
  evidencia/raw  evidencia/parsed  evidencia/parsed   evidencia/reportes
@@ -39,7 +39,7 @@ recon-ai-suite/
 │   ├── scanner.py           # Envuelve nmap, gobuster, etc.
 │   ├── parser.py            # Parsea outputs a JSON estructurado
 │   ├── ai_prioritizer.py    # Integra DeepSeek API para priorizar
-│   └── report_generator.py  # Genera informe Markdown/PDF
+│   └── report_generator.py  # Genera informe en Markdown
 ├── scripts/
 │   └── run_recon.sh         # Script de entrada
 ├── docs/
@@ -67,7 +67,7 @@ Dependencias Python declaradas en `requirements.txt`:
 | `openai` | Cliente del LLM, compatible con la API de DeepSeek (etapa *DeepSeek API*) |
 | `requests` | Transporte HTTP de respaldo si el SDK `openai` no está instalado |
 | `PyYAML` | Lectura de `config.yaml` (target, flags, modelo, rutas) |
-| `Jinja2` | Plantilla del informe (Markdown, HTML o PDF) |
+| `Jinja2` | Plantilla del informe (Markdown) |
 
 Configura la API key **como variable de entorno** (nunca en `config.yaml`):
 

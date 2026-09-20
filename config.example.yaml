@@ -44,14 +44,14 @@ scanner:
   gobuster:
     enabled: false               # Actívalo solo con permiso y un HTTP activo
     binary: gobuster             # Debe estar en el PATH
-    # Ajusta la ruta a tu sistema operativo:
-    #   Linux/Kali  : /usr/share/wordlists/dirb/common.txt
-    #   Repo local  : ./evidencia/wordlists/common.txt (SecLists common.txt)
-    wordlist: /usr/share/wordlists/dirb/common.txt
+    # Wordlist de SecLists (Discovery/Web-Content/common.txt).
+    # La ruta relativa se resuelve contra la raíz del proyecto; en Linux/Kali
+    # también puedes usar /usr/share/wordlists/dirb/common.txt si la tienes.
+    wordlist: ./evidencia/wordlists/common.txt
     timeout: 600
 
 # --- Generación de informes --------------------------------------------------
 report:
-  format: markdown               # markdown | pdf (pdf requiere pandoc/weasyprint)
+  format: markdown               # Único formato implementado (PDF: ver docs/01, Backlog)
   include_raw_evidence: true
   language: es
