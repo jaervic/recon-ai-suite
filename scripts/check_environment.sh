@@ -32,7 +32,7 @@ fi
 
 # --- 2) gobuster -------------------------------------------------------------
 if command -v gobuster >/dev/null 2>&1; then
-  ok "gobuster instalado -> $(gobuster version 2>&1 | head -n1)"
+  ok "gobuster instalado -> $(gobuster --version 2>&1 | head -n1)"
 else
   bad "gobuster NO encontrado en el PATH (https://github.com/OJ/gobuster)"
 fi
