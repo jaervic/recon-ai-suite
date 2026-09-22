@@ -147,6 +147,11 @@ class Scanner:
             scanner = python_nmap.PortScanner()
             scanner.scan(hosts=self.target, arguments=arguments)
             xml_output = scanner.get_nmap_last_output() or ""
+            # python-nmap 0.7.1 devuelve bytes en la ruta de scan() (no decodifica
+            # el stdout del subproceso) y str en analyse_nmap_xml_scan(); se
+            # normaliza a str porque write_text() sólo acepta texto.
+            if isinstance(xml_output, bytes):
+                xml_output = xml_output.decode("utf-8", errors="replace")
         except python_nmap.PortScannerError as error:
             detail = str(error).splitlines()[0].strip()
             if "not found" in detail.lower():
