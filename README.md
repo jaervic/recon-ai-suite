@@ -76,6 +76,25 @@ export DEEPSEEK_API_KEY="sk-..."                 # Linux/WSL/macOS
 $env:DEEPSEEK_API_KEY = "sk-..."                 # PowerShell
 ```
 
+## 📊 Resultados
+
+Escaneo real contra **scanme.nmap.org**, target público autorizado por el
+Nmap Project ([scanme.nmap.org](https://scanme.nmap.org/)) para pruebas.
+
+| Puerto | Servicio | Severidad | MITRE |
+|---|---|---|---|
+| 22/tcp | OpenSSH 6.6.1p1 | Baja | T1110 |
+| 80/tcp | Apache 2.4.7 | Baja | T1190 |
+| 9929/tcp | nping-echo | Media | T1046 |
+| 31337/tcp | tcpwrapped | Media | T1205 |
+
+El motor de IA (DeepSeek) priorizó los hallazgos y generó un informe ejecutivo.
+Los 4 puertos detectados coinciden con el perfil oficial de scanme.nmap.org,
+validando el pipeline end-to-end.
+
+- [📄 Ver informe completo](evidencia/reportes/scanme.nmap.org_reporte.md)
+- [🤖 Ver salida de DeepSeek](evidencia/parsed/scanme.nmap.org_priorizado.json)
+
 ## 🚀 Uso
 
 Pipeline completo con un solo comando:
