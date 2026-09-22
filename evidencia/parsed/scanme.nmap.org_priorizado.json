@@ -1,0 +1,145 @@
+{
+  "engine": "llm:openai-sdk:deepseek-chat",
+  "generated_at": "2026-09-21T03:30:29+00:00",
+  "target": "scanme.nmap.org",
+  "summary": {
+    "hosts_up": 1,
+    "open_ports": 4,
+    "web_paths": 0
+  },
+  "counts_by_severity": {
+    "critica": 0,
+    "alta": 0,
+    "media": 2,
+    "baja": 2,
+    "informativa": 0
+  },
+  "executive_summary": "El escaneo autorizado sobre scanme.nmap.org identificó un único host activo con cuatro puertos abiertos que exponen servicios de red. La mayoría de los servicios corresponden a configuraciones de laboratorio o de demostración, por lo que el riesgo inmediato es limitado. Sin embargo, la presencia de SSH y HTTP con versiones antiguas, junto con servicios poco habituales como nping-echo y un puerto tcpwrapped, amplía la superficie de ataque y merece revisión. No se detectaron rutas web accesibles, lo que reduce el riesgo de exposición de contenido sensible. Se recomienda validar la necesidad de cada servicio expuesto y aplicar actualizaciones y controles de acceso.",
+  "findings": [
+    {
+      "id": "PORT-9929/tcp",
+      "source": "nmap",
+      "host": "45.33.32.156",
+      "title": "Servicio expuesto: nping-echo en 9929/tcp",
+      "severity_hint": "media",
+      "evidence": "Nping echo",
+      "recommendation": "Deshabilitar y cerrar el puerto 9929/tcp si no es estrictamente necesario. Si se requiere para pruebas, restringirlo a direcciones IP de confianza mediante firewall.",
+      "severity": "media",
+      "explanation": "El servicio nping-echo es una utilidad de prueba de Nmap que no debería estar expuesta en producción. Puede ser utilizado para amplificación de tráfico, reconocimiento o como vector para pruebas de conectividad no deseadas, y revela que el host ejecuta herramientas de pentesting.",
+      "mitre_technique": "T1046"
+    },
+    {
+      "id": "PORT-31337/tcp",
+      "source": "nmap",
+      "host": "45.33.32.156",
+      "title": "Servicio expuesto: tcpwrapped en 31337/tcp",
+      "severity_hint": "media",
+      "evidence": "open",
+      "recommendation": "Investigar qué proceso escucha en el puerto 31337/tcp, verificar su legitimidad y, si no es necesario, cerrarlo y bloquearlo en el firewall. Realizar un análisis de integridad del host para descartar compromiso.",
+      "severity": "media",
+      "explanation": "El puerto 31337/tcp aparece como tcpwrapped, lo que indica que el servicio acepta la conexión TCP pero la cierra inmediatamente, posiblemente por un filtrado o un servicio oculto. Este comportamiento puede señalar un backdoor, un servicio mal configurado o un mecanismo de evasión, y es un puerto asociado históricamente a herramientas de acceso remoto.",
+      "mitre_technique": "T1205"
+    },
+    {
+      "id": "PORT-22/tcp",
+      "source": "nmap",
+      "host": "45.33.32.156",
+      "title": "Servicio expuesto: ssh en 22/tcp",
+      "severity_hint": "baja",
+      "evidence": "OpenSSH 6.6.1p1 Ubuntu 2ubuntu2.13 Ubuntu Linux; protocol 2.0",
+      "recommendation": "Actualizar OpenSSH a una versión soportada, deshabilitar la autenticación por contraseña en favor de claves, limitar el acceso por IP y aplicar fail2ban o similar para bloquear intentos de fuerza bruta.",
+      "severity": "baja",
+      "explanation": "SSH expuesto con OpenSSH 6.6.1p1, una versión antigua de Ubuntu que puede contener vulnerabilidades conocidas y ser objetivo de ataques de fuerza bruta o explotación de fallos de autenticación. Al estar accesible desde Internet, aumenta el riesgo de acceso no autorizado si las credenciales son débiles.",
+      "mitre_technique": "T1110"
+    },
+    {
+      "id": "PORT-80/tcp",
+      "source": "nmap",
+      "host": "45.33.32.156",
+      "title": "Servicio expuesto: http en 80/tcp",
+      "severity_hint": "baja",
+      "evidence": "Apache httpd 2.4.7 (Ubuntu)",
+      "recommendation": "Actualizar Apache a una versión mantenida, forzar HTTPS con TLS moderno, revisar la configuración de módulos y aplicar cabeceras de seguridad. Si el servicio no es necesario, deshabilitarlo.",
+      "severity": "baja",
+      "explanation": "Servidor Apache httpd 2.4.7 (Ubuntu) expuesto en HTTP sin cifrado. Esta versión es antigua y puede ser vulnerable a fallos conocidos; además, el tráfico en claro permite interceptación y manipulación de datos. No se encontraron rutas web, pero el servicio sigue siendo un vector de ataque potencial.",
+      "mitre_technique": "T1190"
+    }
+  ],
+  "hosts": [
+    {
+      "ip": "45.33.32.156",
+      "addresses": [
+        "45.33.32.156"
+      ],
+      "hostname": "scanme.nmap.org",
+      "os": "",
+      "ports": [
+        {
+          "port": 22,
+          "protocol": "tcp",
+          "state": "open",
+          "service": "ssh",
+          "product": "OpenSSH",
+          "version": "6.6.1p1 Ubuntu 2ubuntu2.13",
+          "extrainfo": "Ubuntu Linux; protocol 2.0",
+          "scripts": [
+            {
+              "id": "ssh-hostkey",
+              "output": "1024 ac:00:a0:1a:82:ff:cc:55:99:dc:67:2b:34:97:6b:75 (DSA)\n  2048 20:3d:2d:44:62:2a:b0:5a:9d:b5:b3:05:14:c2:a6:b2 (RSA)\n  256 96:02:bb:5e:57:54:1c:4e:45:2f:56:4c:4a:24:b2:57 (ECDSA)\n  256 33:fa:91:0f:e0:e1:7b:1f:6d:05:a2:b0:f1:54:41:56 (ED25519)"
+            }
+          ]
+        },
+        {
+          "port": 80,
+          "protocol": "tcp",
+          "state": "open",
+          "service": "http",
+          "product": "Apache httpd",
+          "version": "2.4.7",
+          "extrainfo": "(Ubuntu)",
+          "scripts": [
+            {
+              "id": "http-title",
+              "output": "Go ahead and ScanMe!"
+            },
+            {
+              "id": "http-favicon",
+              "output": "Nmap Project"
+            },
+            {
+              "id": "http-server-header",
+              "output": "Apache/2.4.7 (Ubuntu)"
+            }
+          ]
+        },
+        {
+          "port": 9929,
+          "protocol": "tcp",
+          "state": "open",
+          "service": "nping-echo",
+          "product": "Nping echo",
+          "version": "",
+          "extrainfo": "",
+          "scripts": []
+        },
+        {
+          "port": 31337,
+          "protocol": "tcp",
+          "state": "open",
+          "service": "tcpwrapped",
+          "product": "",
+          "version": "",
+          "extrainfo": "",
+          "scripts": []
+        }
+      ]
+    }
+  ],
+  "web_paths": [],
+  "next_steps": [
+    "Realizar un escaneo de vulnerabilidades específicas sobre las versiones de OpenSSH y Apache identificadas para confirmar CVEs aplicables.",
+    "Enumerar y validar la configuración de los servicios en los puertos 9929/tcp y 31337/tcp, determinando si son legítimos o indicios de compromiso.",
+    "Revisar reglas de firewall y segmentación para restringir el acceso a los servicios expuestos únicamente a orígenes autorizados.",
+    "Documentar los hallazgos y coordinar con el equipo responsable la aplicación de parches y actualizaciones de software."
+  ]
+}

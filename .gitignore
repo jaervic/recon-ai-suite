@@ -31,3 +31,7 @@ config.local.yaml
 # --- Sistema operativo --------------------------------------------------------
 .DS_Store
 Thumbs.db
+
+# Excepciones: versionar solo el entregable final y el JSON priorizado
+!evidencia/reportes/*.md
+!evidencia/parsed/*_priorizado.json
