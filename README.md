@@ -138,4 +138,4 @@ Cada hallazgo se enriquece con: `severity` (crítica/alta/media/baja/informativa
 
 ## 👤 Autor
 
-**Tu Nombre** — LinkedIn: [tu-perfil] · GitHub: [@tu-usuario]
+**Jaervic** — LinkedIn: [(https://www.linkedin.com/in/jaervic/)] · GitHub: [@Jaervic]
