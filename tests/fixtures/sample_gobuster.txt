@@ -1,0 +1,7 @@
+/admin                (Status: 301) [Size: 316] [--> http://192.168.56.10/admin/]
+/index.html           (Status: 200) [Size: 10918]
+/.htaccess            (Status: 403) [Size: 277]
+/.htpasswd            (Status: 403) [Size: 277]
+/server-status        (Status: 403) [Size: 277]
+/backup.zip           (Status: 200) [Size: 10485760]
+/secret               (Status: 401) [Size: 0]

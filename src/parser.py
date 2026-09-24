@@ -49,7 +49,10 @@ def parse_nmap_xml(xml_path: str | Path) -> list[dict]:
     if not path.exists():
         return []
 
-    root = ET.parse(path).getroot()
+    try:
+        root = ET.parse(path).getroot()
+    except ET.ParseError:
+        return []
     hosts: list[dict] = []
     for host_node in root.findall("host"):
         status = host_node.find("status")
@@ -128,8 +131,10 @@ def parse_gobuster_txt(txt_path: str | Path) -> list[dict]:
         line = line.strip()
         if not line:
             continue
-        route = line.split()[0].lstrip("/")
         status_match = STATUS_RE.search(line)
+        if status_match is None:
+            continue
+        route = line.split()[0].lstrip("/")
         size_match = SIZE_RE.search(line)
         entries.append(
             {
